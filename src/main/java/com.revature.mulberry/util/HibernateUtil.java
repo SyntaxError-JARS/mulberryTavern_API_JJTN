@@ -1,6 +1,7 @@
 package com.revature.mulberry.util;
 
 import com.revature.mulberry.customer.Customer;
+import com.revature.mulberry.menu.Menu;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -26,7 +27,7 @@ public class HibernateUtil {
             configuration.setProperties(props);
             // ONE ADDITIONAL STEP I NEED TO INCLUDE
             configuration.addAnnotatedClass(Customer.class);
-//            configuration.addAnnotatedClass(Pokemon.class);
+            configuration.addAnnotatedClass(Menu.class);
 //            configuration.addAnnotatedClass(ElementType.class);
 //            configuration.addAnnotatedClass(Ability.class);
 

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.mulberry.customer.CustomerDao;
 import com.revature.mulberry.customer.CustomerServices;
 import com.revature.mulberry.customer.CustomerServlet;
+import com.revature.mulberry.menu.MenuDao;
+import com.revature.mulberry.menu.MenuServices;
+import com.revature.mulberry.menu.MenuServlet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -19,13 +22,17 @@ public class ContextLoaderListener implements ServletContextListener {
             ObjectMapper mapper = new ObjectMapper();
 
             CustomerDao customerDao = new CustomerDao();
+            MenuDao menuDao = new MenuDao();
 
             CustomerServices customerServices = new CustomerServices(customerDao);
+            MenuServices menuServices = new MenuServices(menuDao);
 
             CustomerServlet customerServlet = new CustomerServlet(customerServices, mapper);
+            MenuServlet menuServlet = new MenuServlet(menuServices, mapper);
 
             ServletContext context = sce.getServletContext();
             context.addServlet("CustomerServlet", customerServlet).addMapping("/customer/*");
+            context.addServlet("MenuServlet", menuServlet).addMapping("/menu/*");
         }
 
         @Override
