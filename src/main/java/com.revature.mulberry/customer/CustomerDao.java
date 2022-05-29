@@ -11,7 +11,6 @@ import java.util.List;
 
 public class CustomerDao {
 
-
     public Customer create(Customer newCustomer) {
         try {
             Session session = HibernateUtil.getSession();
@@ -25,5 +24,25 @@ public class CustomerDao {
         } finally {
             HibernateUtil.closeSession();
         }
+    }
+    public Customer authenticateAdmin(String username, String password){
+
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            Query query = session.createQuery("from Customer where username= :username and password= :password and is_admin= :is_admin");
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            query.setParameter("is_admin", true);
+            Customer admin = (Customer) query.uniqueResult();
+            transaction.commit();
+            return admin;
+        } catch (HibernateException | IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
     }
 }

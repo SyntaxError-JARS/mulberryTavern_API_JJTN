@@ -15,4 +15,19 @@ public class CustomerServices {
         Customer persistedCustomer = customerDao.create(newCustomer);
         return persistedCustomer;
     }
+    public Customer authenticateAdmin(String username, String password){
+
+        if(password == null || password.trim().equals("") || username == null || username.trim().equals("")) {
+            throw new RuntimeException();
+        }
+
+        Customer authenticatedAdmin = customerDao.authenticateAdmin(username, password);
+
+        if (authenticatedAdmin == null){
+            throw new RuntimeException();
+        }
+
+        return authenticatedAdmin;
+
+    }
 }

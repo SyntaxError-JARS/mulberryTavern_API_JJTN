@@ -1,6 +1,7 @@
 package com.revature.mulberry.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.revature.mulberry.auth.AdminAuthServlet;
 import com.revature.mulberry.customer.CustomerDao;
 import com.revature.mulberry.customer.CustomerServices;
 import com.revature.mulberry.customer.CustomerServlet;
@@ -29,10 +30,12 @@ public class ContextLoaderListener implements ServletContextListener {
 
             CustomerServlet customerServlet = new CustomerServlet(customerServices, mapper);
             MenuServlet menuServlet = new MenuServlet(menuServices, mapper);
+            AdminAuthServlet adminAuthServlet = new AdminAuthServlet(customerServices, mapper);
 
             ServletContext context = sce.getServletContext();
             context.addServlet("CustomerServlet", customerServlet).addMapping("/customer/*");
             context.addServlet("MenuServlet", menuServlet).addMapping("/menu/*");
+            context.addServlet("AdminAuthServlet", adminAuthServlet).addMapping("/admin/*");
         }
 
         @Override
