@@ -30,4 +30,19 @@ public class CustomerServices {
         return authenticatedAdmin;
 
     }
+    public Customer authenticateCustomer(String username, String password){
+
+        if(password == null || password.trim().equals("") || username == null || username.trim().equals("")) {
+            throw new RuntimeException();
+        }
+
+        Customer authenticatedCustomer = customerDao.authenticateCustomer(username, password);
+
+        if (authenticatedCustomer == null){
+            throw new RuntimeException();
+        }
+
+        return authenticatedCustomer;
+
+    }
 }

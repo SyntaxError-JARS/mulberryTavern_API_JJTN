@@ -10,4 +10,11 @@ public class MenuServices {
     public List<Menu> readAll() {
         return menuDao.findAll();
     }
+    public Menu update(Menu updatedItem) {
+        if(!menuDao.update(updatedItem)){
+            return null;
+        }
+
+        return updatedItem;
+    }
 }

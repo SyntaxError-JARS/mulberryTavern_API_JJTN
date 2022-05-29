@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AdminAuthServlet extends HttpServlet {
+public class CustomerAuthServlet extends HttpServlet {
 
     private final CustomerServices customerServices;
     // ObjectMapper provided by jackson
     private final ObjectMapper mapper;
 
-    public AdminAuthServlet(CustomerServices customerServices, ObjectMapper mapper){
+    public CustomerAuthServlet(CustomerServices customerServices, ObjectMapper mapper){
         this.customerServices = customerServices;
         this.mapper = mapper;
     }
@@ -32,12 +32,12 @@ public class AdminAuthServlet extends HttpServlet {
             // Trainer reqTrainer = mapper.readValue(req.getInputStream(), Trainer.class);
             LoginCreds loginCreds = mapper.readValue(req.getInputStream(), LoginCreds.class);
 
-            Customer authAdmin = customerServices.authenticateAdmin(loginCreds.getUsername(), loginCreds.getPassword());
+            Customer authCustomer = customerServices.authenticateCustomer(loginCreds.getUsername(), loginCreds.getPassword());
 
             HttpSession httpSession = req.getSession(true);
-            httpSession.setAttribute("authAdmin", authAdmin);
+            httpSession.setAttribute("authCustomer", authCustomer);
 
-            String payload = mapper.writeValueAsString(authAdmin);
+            String payload = mapper.writeValueAsString(authCustomer);
 
             resp.getWriter().write(payload);
             resp.setStatus(200);

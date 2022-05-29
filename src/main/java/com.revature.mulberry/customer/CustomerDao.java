@@ -45,4 +45,23 @@ public class CustomerDao {
         }
 
     }
+    public Customer authenticateCustomer(String username, String password){
+
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            Query query = session.createQuery("from Customer where username= :username and password= :password");
+            query.setParameter("username", username);
+            query.setParameter("password", password);
+            Customer customer = (Customer) query.uniqueResult();
+            transaction.commit();
+            return customer;
+        } catch (HibernateException | IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+
+    }
 }

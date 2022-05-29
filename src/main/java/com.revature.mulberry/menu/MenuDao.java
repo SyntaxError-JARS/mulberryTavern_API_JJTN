@@ -24,4 +24,19 @@ public class MenuDao {
             HibernateUtil.closeSession();
         }
     }
+    public boolean update(Menu updatedItem) {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            session.merge(updatedItem);
+            transaction.commit();
+            return true;
+        } catch (HibernateException | IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
 }
