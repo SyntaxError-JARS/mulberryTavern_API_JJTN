@@ -2,19 +2,21 @@ package com.revature.mulberry.order;
 
 import com.revature.mulberry.customer.Customer;
 import com.revature.mulberry.menu.Menu;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "orders")
+public class Orders {
 
     @Id
     @Column(name = "id")
     private int id;
 
+
     @ManyToOne(optional = false)
     @JoinColumn(name="menu", referencedColumnName = "item_name")
-    private Menu menu_item;
+    private String menu_item;
 
     private String comment;
 
@@ -24,9 +26,20 @@ public class Order {
 
     @ManyToOne(optional = false)
     @JoinColumn(name="customer", referencedColumnName = "username")
-    private Customer customer_username;
+    private String customer_username;
 
-    public Order() {}
+    public Orders(int id, String menu_item, String comment, boolean is_favorite, String order_date,
+                  String customer_username) {
+        super();
+        this.id = id;
+        this.menu_item = menu_item;
+        this.comment = comment;
+        this.is_favorite = is_favorite;
+        this.order_date = order_date;
+        this.customer_username = customer_username;
+    }
+
+    public Orders() {}
 
     public int getId() {
         return id;
@@ -36,11 +49,11 @@ public class Order {
         this.id = id;
     }
 
-    public Menu getMenu_item() {
+    public String getMenu_item() {
         return menu_item;
     }
 
-    public void setMenu_item(Menu menu_item) {
+    public void setMenu_item(String menu_item) {
         this.menu_item = menu_item;
     }
 
@@ -68,17 +81,17 @@ public class Order {
         this.order_date = order_date;
     }
 
-    public Customer getCustomer_username() {
+    public String getCustomer_username() {
         return customer_username;
     }
 
-    public void setCustomer_username(Customer customer_username) {
+    public void setCustomer_username(String customer_username) {
         this.customer_username = customer_username;
     }
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "Orders" +
                 "id=" + id +
                 ", menu_item=" + menu_item +
                 ", comment='" + comment + '\'' +
@@ -87,4 +100,5 @@ public class Order {
                 ", customer_username=" + customer_username +
                 '}';
     }
+
 }

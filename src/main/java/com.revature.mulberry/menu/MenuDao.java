@@ -39,4 +39,19 @@ public class MenuDao {
         }
     }
 
+    public Menu findById(String item_name) {
+        try {
+            Session session = HibernateUtil.getSession();
+            Transaction transaction = session.beginTransaction();
+            Menu item = session.load(Menu.class, item_name);
+            transaction.commit();
+            return item;
+        } catch (HibernateException | IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            HibernateUtil.closeSession();
+        }
+    }
+
 }

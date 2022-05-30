@@ -9,6 +9,9 @@ import com.revature.mulberry.customer.CustomerServlet;
 import com.revature.mulberry.menu.MenuDao;
 import com.revature.mulberry.menu.MenuServices;
 import com.revature.mulberry.menu.MenuServlet;
+import com.revature.mulberry.order.OrderDao;
+import com.revature.mulberry.order.OrderServices;
+import com.revature.mulberry.order.OrderServlet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -25,18 +28,22 @@ public class ContextLoaderListener implements ServletContextListener {
 
             CustomerDao customerDao = new CustomerDao();
             MenuDao menuDao = new MenuDao();
+            OrderDao orderDao = new OrderDao();
 
             CustomerServices customerServices = new CustomerServices(customerDao);
             MenuServices menuServices = new MenuServices(menuDao);
+            OrderServices orderServices = new OrderServices(orderDao);
 
             CustomerServlet customerServlet = new CustomerServlet(customerServices, mapper);
             MenuServlet menuServlet = new MenuServlet(menuServices, mapper);
+            OrderServlet orderServlet = new OrderServlet(menuServices, orderServices, mapper);
             AdminAuthServlet adminAuthServlet = new AdminAuthServlet(customerServices, mapper);
             CustomerAuthServlet customerAuthServlet = new CustomerAuthServlet(customerServices, mapper);
 
             ServletContext context = sce.getServletContext();
             context.addServlet("CustomerServlet", customerServlet).addMapping("/customer/*");
             context.addServlet("MenuServlet", menuServlet).addMapping("/menu/*");
+            context.addServlet("OrderServlet", orderServlet).addMapping("/order/*");
             context.addServlet("AdminAuthServlet", adminAuthServlet).addMapping("/admin/*");
             context.addServlet("CustomerAuthServlet", customerAuthServlet).addMapping("/login/*");
         }

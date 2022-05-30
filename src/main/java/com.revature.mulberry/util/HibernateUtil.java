@@ -2,6 +2,7 @@ package com.revature.mulberry.util;
 
 import com.revature.mulberry.customer.Customer;
 import com.revature.mulberry.menu.Menu;
+import com.revature.mulberry.order.Orders;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -28,7 +29,8 @@ public class HibernateUtil {
             // ONE ADDITIONAL STEP I NEED TO INCLUDE
             configuration.addAnnotatedClass(Customer.class);
             configuration.addAnnotatedClass(Menu.class);
-//            configuration.addAnnotatedClass(ElementType.class);
+            configuration.addAnnotatedClass(Orders.class);
+
 //            configuration.addAnnotatedClass(Ability.class);
 
             // ServiceRegistry

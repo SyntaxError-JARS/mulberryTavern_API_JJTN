@@ -17,4 +17,7 @@ public class MenuServices {
 
         return updatedItem;
     }
+    public Menu readById(String itemName) {
+        return menuDao.findById(itemName);
+    }
 }
