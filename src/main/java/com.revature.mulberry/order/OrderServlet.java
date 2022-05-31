@@ -39,22 +39,23 @@ public class OrderServlet extends HttpServlet implements Authable {
         OrderInitializer initOrder = mapper.readValue(req.getInputStream(), OrderInitializer.class); // from JSON to Java Object (Pokemon)
         try{
             Menu item = menuServices.readById(String.valueOf(initOrder.getMenu_item()));
-            newOrder.setMenu_item(item.getItem_name());
+            newOrder.setMenu_item(item);
             newOrder.setComment(initOrder.getComment());
             newOrder.setIs_favorite(initOrder.isIs_favorite());
             newOrder.setOrder_date(initOrder.getOrder_date());
-            newOrder.setCustomer_username(authCustomer.getUsername());
+            newOrder.setCustomer_username(authCustomer);
 
         } catch (Exception e) {
             resp.getWriter().write(e.getMessage());
         }
 
+
         Orders persistedOrder = orderServices.create(newOrder);
 
-        String payload = mapper.writeValueAsString(persistedOrder); // Mapping from Java Object (Pokemon) to JSON
+        // String payload = mapper.writeValueAsString(newOrder); // Mapping from Java Object (Pokemon) to JSON
 
-        resp.getWriter().write("Persisted the provided order as show below \n");
-        resp.getWriter().write(payload);
+        resp.getWriter().write("Got your order. Your order id is \n");
+        resp.getWriter().write(persistedOrder.idToString());
         resp.setStatus(201);
     }
 }

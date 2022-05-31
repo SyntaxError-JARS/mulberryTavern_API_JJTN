@@ -2,7 +2,6 @@ package com.revature.mulberry.order;
 
 public class OrderInitializer {
 
-    private int id;
     private String menu_item;
     private String comment;
     private boolean is_favorite;
@@ -10,20 +9,11 @@ public class OrderInitializer {
 
     public OrderInitializer() {}
 
-    public OrderInitializer(int id, String menu_item, String comment, boolean is_favorite, String order_date) {
-        this.id = id;
+    public OrderInitializer(String menu_item, String comment, boolean is_favorite, String order_date) {
         this.menu_item = menu_item;
         this.comment = comment;
         this.is_favorite = is_favorite;
         this.order_date = order_date;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getMenu_item() {
