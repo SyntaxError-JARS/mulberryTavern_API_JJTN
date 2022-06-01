@@ -1,5 +1,6 @@
 package com.revature.mulberry.util;
 
+import com.revature.mulberry.creditcard.CreditCard;
 import com.revature.mulberry.customer.Customer;
 import com.revature.mulberry.menu.Menu;
 import com.revature.mulberry.order.Orders;
@@ -30,8 +31,7 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(Customer.class);
             configuration.addAnnotatedClass(Menu.class);
             configuration.addAnnotatedClass(Orders.class);
-
-//            configuration.addAnnotatedClass(Ability.class);
+            configuration.addAnnotatedClass(CreditCard.class);
 
             // ServiceRegistry
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()

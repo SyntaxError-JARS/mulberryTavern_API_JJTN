@@ -54,7 +54,7 @@ public class OrderServlet extends HttpServlet implements Authable {
 
         // String payload = mapper.writeValueAsString(newOrder); // Mapping from Java Object (Pokemon) to JSON
 
-        resp.getWriter().write("Got your order. Your order id is \n");
+        resp.getWriter().write("Got your order. Your order id is: \n");
         resp.getWriter().write(persistedOrder.idToString());
         resp.setStatus(201);
     }
