@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class AdminAuthServlet extends HttpServlet {
+public class AdminAuthServlet extends HttpServlet implements Authable {
 
     private final CustomerServices customerServices;
     // ObjectMapper provided by jackson
@@ -23,10 +23,19 @@ public class AdminAuthServlet extends HttpServlet {
     }
 
     @Override
+    protected void doOptions(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        super.doOptions(req, resp);
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-//        resp.addHeader("Access-Control-Allow-Origin", "*");
-//        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-//        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         try {
             // The jackson library has the ObjectMapper with methods to readValues from the HTTPRequest body as an input stream and assign it to the class
             // Trainer reqTrainer = mapper.readValue(req.getInputStream(), Trainer.class);
@@ -43,15 +52,15 @@ public class AdminAuthServlet extends HttpServlet {
             resp.setStatus(200);
         } catch (Exception e){
             resp.setStatus(500);
-            resp.getWriter().write(e.getMessage());
+            resp.getWriter().write("Unauthorized request - you are not an admin");
         }
     }
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-//        resp.addHeader("Access-Control-Allow-Origin", "*");
-//        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
-//        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        resp.addHeader("Access-Control-Allow-Origin", "*");
+        resp.addHeader("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+        resp.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         req.getSession().invalidate();
         resp.getWriter().write("User has logged out!");
     }
